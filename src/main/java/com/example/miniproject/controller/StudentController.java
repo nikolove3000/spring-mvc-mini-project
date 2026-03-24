@@ -2,9 +2,11 @@ package com.example.miniproject.controller;
 
 import com.example.miniproject.model.Student;
 import com.example.miniproject.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -60,7 +62,12 @@ public class StudentController {
      * @return redirect to the student list page
      */
     @PostMapping("")
-    public String createStudent(@ModelAttribute Student student) {
+    public String createStudent(@Valid @ModelAttribute Student student,
+                                BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "new";
+        }
         studentService.saveStudent(student);
         return "redirect:/students";
     }
@@ -87,7 +94,12 @@ public class StudentController {
      * @return redirect to the student list page
      */
     @PostMapping("/{id}/edit")
-    public String updateStudent(@PathVariable long id, @ModelAttribute Student student) {
+    public String updateStudent(@PathVariable long id,@Valid @ModelAttribute Student student
+                                ,BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "edit";
+        }
         student.setId(id);
         studentService.saveStudent(student);
         return "redirect:/students";

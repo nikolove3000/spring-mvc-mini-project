@@ -1,35 +1,41 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-    <form action="${pageContext.request.contextPath}/students" method="post">
+    <form:form action="${pageContext.request.contextPath}/students" method="post" modelAttribute="student">
         <label>Name:</label>
-        <input type="text" name="name">
+        <form:input path="name" />
+        <form:errors path="name" cssStyle="color:red" />
 
         <label>Gender:</label>
-        <select name="gender">
+        <form:select path="gender">
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
-        </select>
+        </form:select>
 
         <label>Email:</label>
-        <input type="text" name="email">
+        <form:input path="email" />
+        <form:errors path="email" cssStyle="color:red" />
 
         <label>Phone Number:</label>
-        <input type="text" name="phone">
+        <form:input path="phone" />
+        <form:errors path="phone" cssStyle="color:red" />
 
         <label>Grade:</label>
-        <input type="text" name="grade">
+        <form:input path="grade" />
+        <form:errors path="grade" cssStyle="color:red" />
 
         <label>GPA:</label>
-        <input type="number" step="0.1" name="gpa">
+        <input type="number" step="0.1" name="gpa" value="${student.gpa}"/>
+        <form:errors path="gpa" cssStyle="color:red" />
 
         <button type="submit">Save</button>
 
-    </form>
+    </form:form>
 </body>
 </html>
